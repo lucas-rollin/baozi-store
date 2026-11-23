@@ -1,33 +1,27 @@
 # Baozi Store API
 
-REST API for a small Chinese-bun shop (clients, products, orders).
-Java · Spring Boot · Spring Data JPA · H2 / MySQL · Postman
+REST API for a small Chinese-bun shop (clients, products, orders).  
+Coursework project for Web Back-End Development (UNINTER).
+
+**Stack:** Java 25 · Spring Boot 4 · Spring Data JPA · H2 / MySQL · OpenAPI (Swagger UI)
 
 ## Requirements
 
 - JDK 25
 - Git
-- (Optional) MariaDB/MySQL — only if you don't want the default H2 database
-- Maven is **not** needed: the project ships the Maven Wrapper (`./mvnw`)
+- (Optional) MySQL: only if you don't want the default H2 database
 
-## Installation
+## Running
 
 ```bash
 git clone https://github.com/lucas-rollin/baozi-store.git
 cd baozi-store
-./mvnw clean install -DskipTests
+./mvnw spring-boot:run  # mvnw.cmd spring-boot:run on windows
 ```
 
-## Running
-
-Default (H2 file database, no setup):
-
-```bash
-./mvnw spring-boot:run
-```
-
-The API runs at `http://localhost:8080`. H2 console: `http://localhost:8080/h2-console`
-(JDBC URL `jdbc:h2:file:./data/baozi`, user `sa`, empty password).
+The API runs at `http://localhost:8080`:
+- **Swagger UI:** `http://localhost:8080/docs`
+- **H2 console:** `http://localhost:8080/h2-console` (JDBC URL `jdbc:h2:file:./data/baozi;AUTO_SERVER=TRUE`, user `sa`, empty password)
 
 ### With MySQL (Podman / Docker)
 
@@ -48,4 +42,33 @@ Then run the application with the `mysql` profile:
 
 ```bash
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql
+```
+
+## Endpoints
+
+| Method | Path | Description |
+| --- | --- | --- |
+| POST | `/clientes`, `/produtos`, `/pedidos` | Create |
+| GET | `/clientes`, `/produtos`, `/pedidos` | List all |
+| GET | `/{recurso}/{id}` | Get by ID |
+| DELETE | `/{recurso}/{id}` | Delete |
+| PUT | `/clientes/{id}`, `/produtos/{id}` | Update |
+
+Interactive schemas and examples are available at `http://localhost:8080/docs`. Example `POST /pedidos` body:
+
+```json
+{
+  "cliente": { "id": 1 },
+  "produto": { "id": 1 },
+  "quantidade": 3
+}
+```
+
+## Structure
+
+```text
+src/main/java/io/github/lucas_rollin/baozistore
+├── model        # JPA entities: Cliente, Produto, Pedido
+├── repository   # Spring Data JPA interfaces
+└── controller   # REST controllers
 ```
