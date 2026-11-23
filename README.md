@@ -16,7 +16,7 @@ Coursework project for Web Back-End Development (UNINTER).
 ```bash
 git clone https://github.com/lucas-rollin/baozi-store.git
 cd baozi-store
-./mvnw spring-boot:run  # mvnw.cmd spring-boot:run on windows
+./mvnw spring-boot:run    # On Windows: mvnw.cmd spring-boot:run
 ```
 
 The API runs at `http://localhost:8080`:
@@ -46,13 +46,15 @@ Then run the application with the `mysql` profile:
 
 ## Endpoints
 
+There are 3 resources: **clientes**, **produtos** and **pedidos**
+
 | Method | Path | Description |
 | --- | --- | --- |
-| POST | `/clientes`, `/produtos`, `/pedidos` | Create |
-| GET | `/clientes`, `/produtos`, `/pedidos` | List all |
-| GET | `/{recurso}/{id}` | Get by ID |
-| DELETE | `/{recurso}/{id}` | Delete |
-| PUT | `/clientes/{id}`, `/produtos/{id}` | Update |
+| POST | `/{resource}` | Create |
+| GET | `/{resource}` | List all |
+| GET | `/{resource}/{id}` | Get by ID |
+| DELETE | `/{resource}/{id}` | Delete |
+| PUT | `/{resource}/{id}` | Update |
 
 Interactive schemas and examples are available at `http://localhost:8080/docs`. Example `POST /pedidos` body:
 

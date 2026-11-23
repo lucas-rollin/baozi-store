@@ -54,6 +54,26 @@ public class PedidoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // Body: {"cliente": {"id": 1}, "produto": {"id": 1}, "quantidade": 7}
+    @PutMapping("/{id}")
+    public ResponseEntity<Pedido> atualizar(@PathVariable Long id, @RequestBody Pedido pedido) {
+        if (pedido.getCliente() == null || pedido.getProduto() == null
+                || pedido.getQuantidade() == null || pedido.getQuantidade() <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+        Cliente cliente = clientes.findById(pedido.getCliente().getId()).orElse(null);
+        Produto produto = produtos.findById(pedido.getProduto().getId()).orElse(null);
+        if (cliente == null || produto == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return pedidos.findById(id).map(p -> {
+            p.setCliente(cliente);
+            p.setProduto(produto);
+            p.setQuantidade(pedido.getQuantidade());
+            return ResponseEntity.ok(pedidos.save(p));
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> apagar(@PathVariable Long id) {
         if (!pedidos.existsById(id)) return ResponseEntity.notFound().build();
