@@ -9,7 +9,7 @@ Coursework project for Web Back-End Development (UNINTER).
 
 - JDK 25
 - Git
-- (Optional) MySQL: only if you don't want the default H2 database
+- *(Optional)* Podman, Docker, or a local MySQL 8 instance (only needed if switching from the default H2 database)
 
 ## Running
 
